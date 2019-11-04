@@ -108,7 +108,7 @@ describe("ProductService", () => {
 
     const importRxjs = tsquery(
       ast,
-      "ImportDeclaration StringLiteral[value=rxjs/add/operator/map]"
+      "ImportDeclaration StringLiteral[value=rxjs/operators]"
     );
 
     assert(
@@ -118,7 +118,7 @@ describe("ProductService", () => {
 
     const mapMethod = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression Identifier[name=map]"
+      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression Identifier[name=pipe]"
     );
 
     assert(
@@ -128,7 +128,7 @@ describe("ProductService", () => {
 
     const responseParameter = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression:has(Identifier[name=map]) Parameter Identifier[name=response]"
+      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression:has(Identifier[name=pipe]) Parameter Identifier[name=map]"
     );
 
     assert(
@@ -138,7 +138,7 @@ describe("ProductService", () => {
 
     const responseReturn = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression:has(Identifier[name=map]) PropertyAccessExpression Identifier[name=response]"
+      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression:has(Identifier[name=pipe]) PropertyAccessExpression Identifier[name=response]"
     );
 
     assert(
@@ -148,7 +148,7 @@ describe("ProductService", () => {
 
     const jsonReturn = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression:has(Identifier[name=map]) PropertyAccessExpression Identifier[name=json]"
+      "MethodDeclaration:has(Identifier[name=getAlbum]) CallExpression:has(Identifier[name=pipe]) PropertyAccessExpression Identifier[name=json]"
     );
 
     assert(
