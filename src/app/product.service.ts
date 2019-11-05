@@ -5,12 +5,14 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 import {Album} from './album';
+import {Product} from './product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private _albumUrl = '../assets/album.json';
+  private _productsUrl = '../assets/products.json';
 
   constructor(private _http: Http) {}
 
@@ -18,5 +20,11 @@ export class ProductService {
     return this._http
       .get(this._albumUrl)
       .pipe(map(response => <Album>response.json()));
+  }
+
+  getProducts(): Observable<Product[]> {
+    return this._http
+      .get(this._productsUrl)
+      .pipe(map(response => <Product[]>response.json()));
   }
 }
