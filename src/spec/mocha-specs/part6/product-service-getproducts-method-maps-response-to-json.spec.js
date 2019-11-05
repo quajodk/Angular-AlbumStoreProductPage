@@ -114,22 +114,22 @@ describe("ProductService", () => {
 
     assert(
       importRxjs.length > 0,
-      "The ProductService isn't importing `map` from `rxjs/add/operator/map`."
+      "The ProductService isn't importing `map` from `rxjs/operators`."
     );
 
     const mapMethod = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression Identifier[name=map]"
+      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression Identifier[name=pipe]"
     );
 
     assert(
       mapMethod.length > 0,
-      "It doesn't look like that you're chaining a `map` method after `this._http.get(this._productsUrl)`."
+      "It doesn't look like that you're chaining a `pipe` method after `this._http.get(this._productsUrl)`."
     );
 
     const responseParameter = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=map]) Parameter Identifier[name=response]"
+      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=pipe]) Parameter Identifier[name=response]"
     );
 
     assert(
@@ -139,7 +139,7 @@ describe("ProductService", () => {
 
     const responseReturn = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=map]) PropertyAccessExpression Identifier[name=response]"
+      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=pipe]) PropertyAccessExpression Identifier[name=response]"
     );
 
     assert(
