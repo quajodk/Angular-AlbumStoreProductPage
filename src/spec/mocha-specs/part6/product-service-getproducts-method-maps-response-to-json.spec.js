@@ -1,11 +1,11 @@
-const assert = require("chai").assert;
-const helpers = require("../helpers");
-const { readFileSync } = require("fs");
-const { tsquery } = require("@phenomnomnominal/tsquery");
+const assert = require('chai').assert;
+const helpers = require('../helpers');
+const {readFileSync} = require('fs');
+const {tsquery} = require('@phenomnomnominal/tsquery');
 
-describe("ProductService", () => {
-  it("should map the result of get request to json with rxjs map function @product-service-getproducts-method-maps-response-to-json", () => {
-    const fileName = "src/app/product.service.ts";
+describe('ProductService', () => {
+  it('should map the result of get request to json with rxjs map function @product-service-getproducts-method-maps-response-to-json', () => {
+    const fileName = 'src/app/product.service.ts';
 
     helpers.readFile(
       fileName,
@@ -17,7 +17,7 @@ describe("ProductService", () => {
 
     const privateDeclaration = tsquery(
       ast,
-      "PropertyDeclaration PrivateKeyword"
+      'PropertyDeclaration PrivateKeyword'
     );
 
     assert(
@@ -27,7 +27,7 @@ describe("ProductService", () => {
 
     const productsUrlDeclaration = tsquery(
       ast,
-      "PropertyDeclaration Identifier[name=_productsUrl]"
+      'PropertyDeclaration Identifier[name=_productsUrl]'
     );
 
     assert(
@@ -54,7 +54,7 @@ describe("ProductService", () => {
 
     const returnStatement = tsquery(
       ast,
-      "MethodDeclaration:has( Identifier[name=getProducts] ) ReturnStatement"
+      'MethodDeclaration:has( Identifier[name=getProducts] ) ReturnStatement'
     );
 
     assert(
@@ -64,7 +64,7 @@ describe("ProductService", () => {
 
     const thisStatement = tsquery(
       ast,
-      "MethodDeclaration:has( Identifier[name=getProducts] ) CallExpression ThisKeyword"
+      'MethodDeclaration:has( Identifier[name=getProducts] ) CallExpression ThisKeyword'
     );
 
     assert(
@@ -74,7 +74,7 @@ describe("ProductService", () => {
 
     const httpGet = tsquery(
       ast,
-      "MethodDeclaration:has( Identifier[name=getProducts] ) CallExpression PropertyAccessExpression Identifier[name=_http]"
+      'MethodDeclaration:has( Identifier[name=getProducts] ) CallExpression PropertyAccessExpression Identifier[name=_http]'
     );
 
     assert(
@@ -84,12 +84,12 @@ describe("ProductService", () => {
 
     const getMethod = tsquery(
       ast,
-      "MethodDeclaration:has( Identifier[name=getProducts] )  PropertyAccessExpression:has(Identifier[name=get]) "
+      'MethodDeclaration:has( Identifier[name=getProducts] )  PropertyAccessExpression:has(Identifier[name=get]) '
     );
 
     assert(
       getMethod.length > 0,
-      "It looks like the `getProducts` method is not sending a `GET` request."
+      'It looks like the `getProducts` method is not sending a `GET` request.'
     );
 
     assert(
@@ -99,7 +99,7 @@ describe("ProductService", () => {
 
     const productsUrlArg = tsquery(
       ast,
-      "MethodDeclaration:has( Identifier[name=getProducts] ) CallExpression PropertyAccessExpression Identifier[name=_productsUrl]"
+      'MethodDeclaration:has( Identifier[name=getProducts] ) CallExpression PropertyAccessExpression Identifier[name=_productsUrl]'
     );
 
     assert(
@@ -109,7 +109,7 @@ describe("ProductService", () => {
 
     const importRxjs = tsquery(
       ast,
-      "ImportDeclaration StringLiteral[value=rxjs/add/operator/map]"
+      'ImportDeclaration StringLiteral[value=rxjs/operators]'
     );
 
     assert(
@@ -119,7 +119,7 @@ describe("ProductService", () => {
 
     const mapMethod = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression Identifier[name=pipe]"
+      'MethodDeclaration:has(Identifier[name=getProducts]) CallExpression Identifier[name=pipe]'
     );
 
     assert(
@@ -129,32 +129,32 @@ describe("ProductService", () => {
 
     const responseParameter = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=pipe]) Parameter Identifier[name=response]"
+      'MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=pipe]) Parameter Identifier[name=response]'
     );
 
     assert(
       responseParameter.length > 0,
-      "The `map` method should be taking `response` as an argument of its callback function."
+      'The `map` method should be taking `response` as an argument of its callback function.'
     );
 
     const responseReturn = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=pipe]) PropertyAccessExpression Identifier[name=response]"
+      'MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=pipe]) PropertyAccessExpression Identifier[name=response]'
     );
 
     assert(
       responseReturn.length > 0,
-      "The `map` method should be returning `response.json`. "
+      'The `map` method should be returning `response.json`. '
     );
 
     const jsonReturn = tsquery(
       ast,
-      "MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=map]) PropertyAccessExpression Identifier[name=json]"
+      'MethodDeclaration:has(Identifier[name=getProducts]) CallExpression:has(Identifier[name=map]) PropertyAccessExpression Identifier[name=json]'
     );
 
     assert(
       jsonReturn.length > 0,
-      "The `map` method should be returning `response.json`. "
+      'The `map` method should be returning `response.json`. '
     );
   });
 });
